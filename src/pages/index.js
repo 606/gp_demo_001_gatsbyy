@@ -1,18 +1,31 @@
 import * as React from "react"
-import { useState, useMemo } from "react"
-import { Link } from "gatsby"
+import { useState, useMemo, useEffect } from "react"
+import { Link, navigate } from "gatsby"
 import Layout from "../components/Layout"
 import TermCard from "../components/TermCard"
 import termsData from "../data/terms-compiled.json"
 
 const IndexPage = ({ location }) => {
-  const params = new URLSearchParams(location?.search || "")
-  const initialTag = params.get("tag") || null
-
   const [search, setSearch] = useState("")
-  const [activeTag, setActiveTag] = useState(initialTag)
+  const [activeTag, setActiveTag] = useState(null)
 
   const { tags, terms } = termsData
+
+  // Read tag from URL
+  useEffect(() => {
+    const params = new URLSearchParams(location?.search || "")
+    const tagParam = params.get("tag")
+    setActiveTag(tagParam)
+  }, [location?.search])
+
+  const handleTagChange = (tagId) => {
+    if (tagId) {
+      navigate(`/?tag=${tagId}`)
+    } else {
+      navigate('/')
+    }
+    setActiveTag(tagId)
+  }
 
   const filteredTerms = useMemo(() => {
     return terms.filter((term) => {
@@ -28,98 +41,61 @@ const IndexPage = ({ location }) => {
     })
   }, [search, activeTag, terms])
 
-  const stats = useMemo(() => {
-    return {
-      total: terms.length,
-      tags: tags.length,
-      filtered: filteredTerms.length,
-    }
-  }, [terms, tags, filteredTerms])
-
-  const getActiveTagName = () => {
-    if (!activeTag) return null
-    const tag = tags.find(t => t.id === activeTag)
-    return tag ? tag.name : null
-  }
+  const sortedTerms = useMemo(() => {
+    return [...filteredTerms].sort((a, b) => a.term.localeCompare(b.term))
+  }, [filteredTerms])
 
   const activeTagData = activeTag ? tags.find(t => t.id === activeTag) : null
 
   return (
     <Layout
       activeTag={activeTag}
-      onTagChange={setActiveTag}
+      onTagChange={handleTagChange}
       onSearch={setSearch}
       searchValue={search}
     >
       <header className="page-header">
-        <h1 className="page-title">
-          {activeTag ? (
-            <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {activeTagData ? (
+          <>
+            <div className="page-tag-header">
               <span
-                style={{
-                  width: '12px',
-                  height: '12px',
-                  borderRadius: '50%',
-                  background: activeTagData?.color
-                }}
+                className="page-tag-dot"
+                style={{ background: activeTagData.color }}
               />
-              {getActiveTagName()}
-            </span>
-          ) : (
-            'All Terms'
-          )}
-        </h1>
-        <p className="page-subtitle">
-          {search
-            ? `${stats.filtered} results for "${search}"`
-            : activeTag
-            ? `${stats.filtered} terms tagged with ${getActiveTagName()}`
-            : `Browse ${stats.filtered} development terms`}
-        </p>
-        {activeTag && (
-          <button
-            className="clear-filter"
-            onClick={() => setActiveTag(null)}
-          >
-            ✕ Clear filter
-          </button>
+              <h1 className="page-title">{activeTagData.name}</h1>
+              <button
+                className="clear-tag-btn"
+                onClick={() => handleTagChange(null)}
+              >
+                ✕
+              </button>
+            </div>
+            <p className="page-subtitle">
+              {sortedTerms.length} terms with this tag
+            </p>
+          </>
+        ) : (
+          <>
+            <h1 className="page-title">All Terms</h1>
+            <p className="page-subtitle">
+              {search
+                ? `${sortedTerms.length} results for "${search}"`
+                : `${sortedTerms.length} development terms`}
+            </p>
+          </>
         )}
       </header>
 
-      <div className="stats-row">
-        <div className="stat-card">
-          <div className="stat-icon">📖</div>
-          <div className="stat-info">
-            <span className="stat-number">{stats.total}</span>
-            <span className="stat-label">Total Terms</span>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon">🏷️</div>
-          <div className="stat-info">
-            <span className="stat-number">{stats.tags}</span>
-            <span className="stat-label">Tags</span>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon">✨</div>
-          <div className="stat-info">
-            <span className="stat-number">{stats.filtered}</span>
-            <span className="stat-label">Showing</span>
-          </div>
-        </div>
-      </div>
-
-      {filteredTerms.length > 0 ? (
+      {sortedTerms.length > 0 ? (
         <div className="terms-grid">
-          {filteredTerms.map((term) => (
-            <TermCard key={term.id} term={term} tags={tags} />
+          {sortedTerms.map((term) => (
+            <TermCard key={term.id} term={term} tags={tags} onTagClick={handleTagChange} />
           ))}
         </div>
       ) : (
         <div className="empty-state">
           <div className="empty-icon">🔍</div>
-          <p className="empty-text">No terms found. Try adjusting your search or filter.</p>
+          <p className="empty-text">No terms found.</p>
         </div>
       )}
     </Layout>
@@ -132,7 +108,5 @@ export const Head = () => (
   <>
     <title>DevTerms — Development Terminology</title>
     <meta name="description" content="A comprehensive glossary for software development terminology" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
   </>
 )

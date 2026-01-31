@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useState, useEffect, useMemo } from "react"
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 import "../styles/global.css"
 import termsData from "../data/terms-compiled.json"
 
@@ -16,55 +16,29 @@ const Layout = ({ children, activeTerm = null, activeTag = null, onTagChange, on
   const [theme, setTheme] = useState("dark")
   const [mounted, setMounted] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [expandedLetters, setExpandedLetters] = useState({})
 
   const { tags, terms } = termsData
 
-  // Group terms by first letter
-  const termsByLetter = useMemo(() => {
-    const grouped = {}
-    const filteredTerms = searchValue
-      ? terms.filter(t =>
-          t.term.toLowerCase().includes(searchValue.toLowerCase()) ||
-          t.fullName?.toLowerCase().includes(searchValue.toLowerCase())
-        )
-      : terms
-
-    filteredTerms.forEach(term => {
-      const letter = term.term[0].toUpperCase()
-      if (!grouped[letter]) {
-        grouped[letter] = []
-      }
-      grouped[letter].push(term)
-    })
-
-    // Sort terms within each letter
-    Object.keys(grouped).forEach(letter => {
-      grouped[letter].sort((a, b) => a.term.localeCompare(b.term))
-    })
-
-    return grouped
+  // Filter terms by search
+  const filteredTerms = useMemo(() => {
+    if (!searchValue) return terms
+    return terms.filter(t =>
+      t.term.toLowerCase().includes(searchValue.toLowerCase()) ||
+      t.fullName?.toLowerCase().includes(searchValue.toLowerCase())
+    )
   }, [terms, searchValue])
 
-  const sortedLetters = useMemo(() => {
-    return Object.keys(termsByLetter).sort()
-  }, [termsByLetter])
+  // Sort terms alphabetically
+  const sortedTerms = useMemo(() => {
+    return [...filteredTerms].sort((a, b) => a.term.localeCompare(b.term))
+  }, [filteredTerms])
 
   useEffect(() => {
     setMounted(true)
     const savedTheme = localStorage.getItem("devterms-theme") || "dark"
     setTheme(savedTheme)
     document.documentElement.setAttribute("data-theme", savedTheme)
-
-    // Expand letter of active term
-    if (activeTerm) {
-      const term = terms.find(t => t.id === activeTerm)
-      if (term) {
-        const letter = term.term[0].toUpperCase()
-        setExpandedLetters(prev => ({ ...prev, [letter]: true }))
-      }
-    }
-  }, [activeTerm, terms])
+  }, [])
 
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme)
@@ -72,17 +46,16 @@ const Layout = ({ children, activeTerm = null, activeTag = null, onTagChange, on
     document.documentElement.setAttribute("data-theme", newTheme)
   }
 
-  const toggleLetter = (letter) => {
-    setExpandedLetters(prev => ({
-      ...prev,
-      [letter]: !prev[letter]
-    }))
-  }
-
   const handleTagClick = (tagId) => {
     if (onTagChange) {
       onTagChange(tagId === activeTag ? null : tagId)
+    } else {
+      navigate(tagId === activeTag ? '/' : `/?tag=${tagId}`)
     }
+    setSidebarOpen(false)
+  }
+
+  const handleTermClick = () => {
     setSidebarOpen(false)
   }
 
@@ -105,7 +78,7 @@ const Layout = ({ children, activeTerm = null, activeTag = null, onTagChange, on
             <input
               type="text"
               className="search-input"
-              placeholder="Search terms..."
+              placeholder="Search..."
               value={searchValue}
               onChange={(e) => onSearch && onSearch(e.target.value)}
             />
@@ -113,85 +86,48 @@ const Layout = ({ children, activeTerm = null, activeTag = null, onTagChange, on
         </div>
 
         <nav className="sidebar-nav">
-          {/* All Terms Link */}
+          {/* Tags Section */}
           <div className="nav-section">
-            <Link
-              to="/"
-              className={`nav-item nav-item-main ${!activeTerm && !activeTag ? 'active' : ''}`}
-            >
-              <span className="nav-icon">📚</span>
-              <span>All Terms</span>
-              <span className="nav-count">{terms.length}</span>
-            </Link>
-          </div>
-
-          {/* Terms A-Z */}
-          <div className="nav-section">
-            <div className="nav-title">Terms A-Z</div>
-
-            {sortedLetters.map((letter) => {
-              const letterTerms = termsByLetter[letter]
-              const isExpanded = expandedLetters[letter]
-              const hasActiveTerm = letterTerms.some(t => t.id === activeTerm)
-
-              return (
-                <div key={letter} className="tree-item">
-                  <button
-                    className={`nav-item tree-parent ${hasActiveTerm ? 'has-active' : ''}`}
-                    onClick={() => toggleLetter(letter)}
-                  >
-                    <span className={`tree-arrow ${isExpanded ? 'expanded' : ''}`}>
-                      ▶
-                    </span>
-                    <span className="letter-badge">{letter}</span>
-                    <span className="nav-count">{letterTerms.length}</span>
-                  </button>
-
-                  {isExpanded && (
-                    <div className="tree-children">
-                      {letterTerms.map((term) => (
-                        <Link
-                          key={term.id}
-                          to={`/term/${term.id}`}
-                          className={`nav-item tree-child ${activeTerm === term.id ? 'active' : ''}`}
-                          onClick={() => setSidebarOpen(false)}
-                        >
-                          <span className="term-label">{term.term}</span>
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )
-            })}
-          </div>
-
-          {/* Tags */}
-          <div className="nav-section">
-            <div className="nav-title">Filter by Tag</div>
-            <div className="tags-list">
+            <div className="nav-title">Tags</div>
+            <div className="tags-cloud">
               {tags.map((tag) => {
                 const count = terms.filter(t => t.tags?.includes(tag.id)).length
                 return (
                   <button
                     key={tag.id}
-                    className={`tag-btn ${activeTag === tag.id ? 'active' : ''}`}
+                    className={`tag-chip ${activeTag === tag.id ? 'active' : ''}`}
                     style={{ '--tag-color': tag.color }}
                     onClick={() => handleTagClick(tag.id)}
                   >
-                    <span className="tag-dot" />
-                    <span>{tag.name}</span>
-                    <span className="tag-count">{count}</span>
+                    {tag.name}
+                    <span className="tag-chip-count">{count}</span>
                   </button>
                 )
               })}
+            </div>
+          </div>
+
+          {/* Terms Tree */}
+          <div className="nav-section">
+            <div className="nav-title">All Terms ({filteredTerms.length})</div>
+            <div className="terms-tree">
+              {sortedTerms.map((term) => (
+                <Link
+                  key={term.id}
+                  to={`/term/${term.id}`}
+                  className={`tree-node ${activeTerm === term.id ? 'active' : ''}`}
+                  onClick={handleTermClick}
+                >
+                  <span className="tree-icon">📄</span>
+                  <span className="tree-label">{term.term}</span>
+                </Link>
+              ))}
             </div>
           </div>
         </nav>
 
         {mounted && (
           <div className="sidebar-footer">
-            <div className="theme-label">Theme</div>
             <div className="theme-switcher">
               {THEMES.map((t) => (
                 <button

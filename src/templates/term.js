@@ -20,14 +20,12 @@ const TermTemplate = ({ pageContext }) => {
 
         <div className="term-detail-card">
           <div className="term-detail-header">
-            <div className="term-detail-meta">
-              <h1 className="term-detail-name">{term.term}</h1>
-            </div>
+            <h1 className="term-detail-name">{term.term}</h1>
             {term.fullName && (
               <p className="term-detail-fullname">{term.fullName}</p>
             )}
             {termTags.length > 0 && (
-              <div className="term-tags" style={{ marginTop: '16px' }}>
+              <div className="term-tags" style={{ marginTop: '16px', padding: 0, border: 'none' }}>
                 {termTags.map((tag) => (
                   <Link
                     key={tag.id}
@@ -62,10 +60,5 @@ const TermTemplate = ({ pageContext }) => {
 export default TermTemplate
 
 export const Head = ({ pageContext }) => (
-  <>
-    <title>{pageContext.term.term} — DevTerms</title>
-    <meta name="description" content={pageContext.term.definition} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-  </>
+  <title>{pageContext.term.term} — DevTerms</title>
 )
