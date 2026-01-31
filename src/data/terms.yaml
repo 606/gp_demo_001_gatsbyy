@@ -1,0 +1,241 @@
+# DevTerms - Development Terminology Database
+# Edit this file to add/modify terms
+
+categories:
+  - id: architecture
+    name: Architecture
+    icon: "🏗️"
+    color: "#f472b6"
+
+  - id: devops
+    name: DevOps
+    icon: "🔄"
+    color: "#60a5fa"
+
+  - id: tools
+    name: Tools
+    icon: "🛠️"
+    color: "#4ade80"
+
+  - id: database
+    name: Database
+    icon: "🗄️"
+    color: "#facc15"
+
+  - id: principles
+    name: Principles
+    icon: "📐"
+    color: "#c084fc"
+
+  - id: frontend
+    name: Frontend
+    icon: "🎨"
+    color: "#fb923c"
+
+  - id: backend
+    name: Backend
+    icon: "⚙️"
+    color: "#38bdf8"
+
+  - id: testing
+    name: Testing
+    icon: "🧪"
+    color: "#f87171"
+
+terms:
+  # Architecture
+  - id: api
+    term: API
+    fullName: Application Programming Interface
+    definition: A set of protocols and tools that allows different software applications to communicate with each other.
+    category: architecture
+    example: "REST API, GraphQL API"
+
+  - id: rest
+    term: REST
+    fullName: Representational State Transfer
+    definition: An architectural style for designing networked applications using stateless communication protocols.
+    category: architecture
+    example: "GET /users, POST /orders, DELETE /items/1"
+
+  - id: mvc
+    term: MVC
+    fullName: Model-View-Controller
+    definition: An architectural pattern that separates an application into three main components for better organization.
+    category: architecture
+    example: "Rails, Django, ASP.NET MVC"
+
+  - id: microservices
+    term: Microservices
+    fullName: Microservices Architecture
+    definition: An architectural style that structures an application as a collection of small, independent services.
+    category: architecture
+    example: "Netflix, Amazon, Uber architectures"
+
+  # DevOps
+  - id: ci-cd
+    term: CI/CD
+    fullName: Continuous Integration / Continuous Deployment
+    definition: A method to frequently deliver apps by introducing automation into the stages of app development.
+    category: devops
+    example: "GitHub Actions, Jenkins, GitLab CI"
+
+  - id: docker
+    term: Docker
+    fullName: Docker Container Platform
+    definition: A platform for developing, shipping, and running applications in isolated containers.
+    category: devops
+    example: "docker build, docker run, Dockerfile"
+
+  - id: kubernetes
+    term: Kubernetes
+    fullName: Kubernetes (K8s)
+    definition: An open-source container orchestration platform for automating deployment, scaling, and management.
+    category: devops
+    example: "kubectl apply, Pods, Deployments, Services"
+
+  - id: terraform
+    term: Terraform
+    fullName: HashiCorp Terraform
+    definition: An infrastructure as code tool that lets you define cloud and on-prem resources in configuration files.
+    category: devops
+    example: "terraform init, terraform plan, terraform apply"
+
+  # Tools
+  - id: git
+    term: Git
+    fullName: Git Version Control
+    definition: A distributed version control system for tracking changes in source code during software development.
+    category: tools
+    example: "git commit, git push, git merge, git rebase"
+
+  - id: npm
+    term: npm
+    fullName: Node Package Manager
+    definition: A package manager for JavaScript, allowing developers to share and reuse code packages.
+    category: tools
+    example: "npm install, npm run build, package.json"
+
+  - id: webpack
+    term: Webpack
+    fullName: Webpack Module Bundler
+    definition: A static module bundler for modern JavaScript applications that processes and bundles assets.
+    category: tools
+    example: "webpack.config.js, loaders, plugins"
+
+  # Database
+  - id: orm
+    term: ORM
+    fullName: Object-Relational Mapping
+    definition: A technique that lets you query and manipulate data from a database using an object-oriented paradigm.
+    category: database
+    example: "Prisma, Sequelize, TypeORM, Hibernate"
+
+  - id: sql
+    term: SQL
+    fullName: Structured Query Language
+    definition: A domain-specific language used for managing and manipulating relational databases.
+    category: database
+    example: "SELECT * FROM users WHERE id = 1"
+
+  - id: nosql
+    term: NoSQL
+    fullName: Not Only SQL
+    definition: A category of database management systems that don't use traditional relational tables.
+    category: database
+    example: "MongoDB, Redis, Cassandra, DynamoDB"
+
+  # Principles
+  - id: solid
+    term: SOLID
+    fullName: SOLID Principles
+    definition: Five design principles intended to make software designs more understandable, flexible, and maintainable.
+    category: principles
+    example: "Single Responsibility, Open/Closed, Liskov Substitution"
+
+  - id: dry
+    term: DRY
+    fullName: Don't Repeat Yourself
+    definition: A principle aimed at reducing repetition of code by abstracting common logic into reusable components.
+    category: principles
+    example: "Creating reusable functions, components, and utilities"
+
+  - id: kiss
+    term: KISS
+    fullName: Keep It Simple, Stupid
+    definition: A design principle stating that systems work best when kept simple rather than made complicated.
+    category: principles
+    example: "Avoiding over-engineering, choosing simple solutions"
+
+  - id: yagni
+    term: YAGNI
+    fullName: You Aren't Gonna Need It
+    definition: A principle that states a programmer should not add functionality until it is actually needed.
+    category: principles
+    example: "Not building features 'just in case' they might be needed"
+
+  # Frontend
+  - id: jsx
+    term: JSX
+    fullName: JavaScript XML
+    definition: A syntax extension for JavaScript that allows writing HTML-like code in JavaScript files.
+    category: frontend
+    example: "<Button onClick={handleClick}>Click me</Button>"
+
+  - id: dom
+    term: DOM
+    fullName: Document Object Model
+    definition: A programming interface for HTML documents that represents the page as a tree of objects.
+    category: frontend
+    example: "document.getElementById(), element.innerHTML"
+
+  - id: css-in-js
+    term: CSS-in-JS
+    fullName: CSS-in-JavaScript
+    definition: A styling technique where CSS is composed using JavaScript, enabling dynamic and scoped styles.
+    category: frontend
+    example: "styled-components, Emotion, CSS Modules"
+
+  # Backend
+  - id: middleware
+    term: Middleware
+    fullName: Middleware Function
+    definition: Software that acts as a bridge between an operating system or database and applications.
+    category: backend
+    example: "Express middleware, authentication layers"
+
+  - id: graphql
+    term: GraphQL
+    fullName: Graph Query Language
+    definition: A query language for APIs that allows clients to request exactly the data they need.
+    category: backend
+    example: "query { user(id: 1) { name, email } }"
+
+  - id: websocket
+    term: WebSocket
+    fullName: WebSocket Protocol
+    definition: A communication protocol providing full-duplex channels over a single TCP connection.
+    category: backend
+    example: "Real-time chat, live notifications, gaming"
+
+  # Testing
+  - id: tdd
+    term: TDD
+    fullName: Test-Driven Development
+    definition: A development process where you write tests before writing the code that makes them pass.
+    category: testing
+    example: "Red-Green-Refactor cycle"
+
+  - id: unit-test
+    term: Unit Test
+    fullName: Unit Testing
+    definition: A type of testing where individual units or components of software are tested in isolation.
+    category: testing
+    example: "Jest, Mocha, pytest, JUnit"
+
+  - id: e2e
+    term: E2E
+    fullName: End-to-End Testing
+    definition: A testing methodology that tests the entire application flow from start to finish.
+    category: testing
+    example: "Cypress, Playwright, Selenium"

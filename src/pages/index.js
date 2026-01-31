@@ -2,7 +2,7 @@ import * as React from "react"
 import { useState, useMemo } from "react"
 import Layout from "../components/Layout"
 import TermCard from "../components/TermCard"
-import terms from "../data/terms.json"
+import termsData from "../data/terms-compiled.json"
 
 const IndexPage = ({ location }) => {
   const params = new URLSearchParams(location?.search || "")
@@ -10,6 +10,8 @@ const IndexPage = ({ location }) => {
 
   const [search, setSearch] = useState("")
   const [activeCategory, setActiveCategory] = useState(initialCategory)
+
+  const { categories, terms } = termsData
 
   const filteredTerms = useMemo(() => {
     return terms.filter((term) => {
@@ -23,20 +25,20 @@ const IndexPage = ({ location }) => {
 
       return matchesSearch && matchesCategory
     })
-  }, [search, activeCategory])
+  }, [search, activeCategory, terms])
 
   const stats = useMemo(() => {
-    const categories = new Set(terms.map((t) => t.category))
     return {
       total: terms.length,
-      categories: categories.size,
+      categories: categories.length,
       filtered: filteredTerms.length,
     }
-  }, [filteredTerms])
+  }, [terms, categories, filteredTerms])
 
   const getCategoryLabel = () => {
     if (activeCategory === "all") return "All Terms"
-    return activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)
+    const cat = categories.find(c => c.id === activeCategory)
+    return cat ? cat.name : activeCategory
   }
 
   return (

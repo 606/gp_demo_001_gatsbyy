@@ -6,7 +6,7 @@ const TermTemplate = ({ pageContext }) => {
   const { term } = pageContext
 
   return (
-    <Layout activeCategory={term.category}>
+    <Layout activeCategory={term.category} activeTerm={term.id}>
       <div className="term-detail">
         <Link to="/" className="back-link">
           ← Back to all terms
