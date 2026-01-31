@@ -4,19 +4,12 @@ import Layout from "../components/Layout"
 import TermCard from "../components/TermCard"
 import terms from "../data/terms.json"
 
-const CATEGORIES = [
-  { id: "all", label: "All", icon: "✨" },
-  { id: "architecture", label: "Architecture", icon: "🏗️" },
-  { id: "devops", label: "DevOps", icon: "🔄" },
-  { id: "tools", label: "Tools", icon: "🛠️" },
-  { id: "database", label: "Database", icon: "🗄️" },
-  { id: "principles", label: "Principles", icon: "📐" },
-  { id: "frontend", label: "Frontend", icon: "🎨" },
-]
+const IndexPage = ({ location }) => {
+  const params = new URLSearchParams(location?.search || "")
+  const initialCategory = params.get("category") || "all"
 
-const IndexPage = () => {
   const [search, setSearch] = useState("")
-  const [activeCategory, setActiveCategory] = useState("all")
+  const [activeCategory, setActiveCategory] = useState(initialCategory)
 
   const filteredTerms = useMemo(() => {
     return terms.filter((term) => {
@@ -37,71 +30,67 @@ const IndexPage = () => {
     return {
       total: terms.length,
       categories: categories.size,
+      filtered: filteredTerms.length,
     }
-  }, [])
+  }, [filteredTerms])
+
+  const getCategoryLabel = () => {
+    if (activeCategory === "all") return "All Terms"
+    return activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)
+  }
 
   return (
-    <Layout>
-      <div className="container">
-        <section className="hero">
-          <div className="hero-badge">
-            <span>📚</span>
-            <span>Development Glossary</span>
-          </div>
-          <h1 className="hero-title">Master Dev Terminology</h1>
-          <p className="hero-subtitle">
-            Your comprehensive glossary for software development terms.
-            Search, explore, and understand the language of modern development.
-          </p>
+    <Layout
+      activeCategory={activeCategory}
+      onCategoryChange={setActiveCategory}
+      onSearch={setSearch}
+      searchValue={search}
+    >
+      <header className="page-header">
+        <h1 className="page-title">{getCategoryLabel()}</h1>
+        <p className="page-subtitle">
+          {search
+            ? `${stats.filtered} results for "${search}"`
+            : `Browse ${stats.filtered} development terms`}
+        </p>
+      </header>
 
-          <div className="stats">
-            <div className="stat">
-              <div className="stat-number">{stats.total}</div>
-              <div className="stat-label">Terms</div>
-            </div>
-            <div className="stat">
-              <div className="stat-number">{stats.categories}</div>
-              <div className="stat-label">Categories</div>
-            </div>
+      <div className="stats-row">
+        <div className="stat-card">
+          <div className="stat-icon">📖</div>
+          <div className="stat-info">
+            <span className="stat-number">{stats.total}</span>
+            <span className="stat-label">Total Terms</span>
           </div>
-        </section>
-
-        <div className="search-container">
-          <span className="search-icon">🔍</span>
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Search for terms, definitions..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
         </div>
+        <div className="stat-card">
+          <div className="stat-icon">📁</div>
+          <div className="stat-info">
+            <span className="stat-number">{stats.categories}</span>
+            <span className="stat-label">Categories</span>
+          </div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-icon">✨</div>
+          <div className="stat-info">
+            <span className="stat-number">{stats.filtered}</span>
+            <span className="stat-label">Showing</span>
+          </div>
+        </div>
+      </div>
 
-        <div className="categories">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat.id}
-              className={`category-btn ${activeCategory === cat.id ? "active" : ""}`}
-              onClick={() => setActiveCategory(cat.id)}
-            >
-              <span>{cat.icon}</span> {cat.label}
-            </button>
+      {filteredTerms.length > 0 ? (
+        <div className="terms-grid">
+          {filteredTerms.map((term) => (
+            <TermCard key={term.id} term={term} />
           ))}
         </div>
-
-        {filteredTerms.length > 0 ? (
-          <div className="terms-grid">
-            {filteredTerms.map((term) => (
-              <TermCard key={term.id} term={term} />
-            ))}
-          </div>
-        ) : (
-          <div className="empty-state">
-            <div className="empty-state-icon">🔍</div>
-            <p>No terms found. Try adjusting your search or filter.</p>
-          </div>
-        )}
-      </div>
+      ) : (
+        <div className="empty-state">
+          <div className="empty-icon">🔍</div>
+          <p className="empty-text">No terms found. Try adjusting your search.</p>
+        </div>
+      )}
     </Layout>
   )
 }

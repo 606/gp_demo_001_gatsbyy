@@ -3,25 +3,19 @@ import { Link } from "gatsby"
 
 const TermCard = ({ term }) => {
   return (
-    <Link
-      to={`/term/${term.id}`}
-      className={`term-card category-${term.category}`}
-    >
+    <Link to={`/term/${term.id}`} className={`term-card cat-${term.category}`}>
       <div className="term-header">
         <h2 className="term-name">{term.term}</h2>
-        <span className={`term-category`}>
-          {term.category}
-        </span>
+        <span className="term-badge">{term.category}</span>
       </div>
       {term.fullName && (
         <p className="term-fullname">{term.fullName}</p>
       )}
       <p className="term-definition">{term.definition}</p>
       <div className="term-footer">
-        <span style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
-          View details
+        <span className="term-more">
+          View details <span className="term-arrow">→</span>
         </span>
-        <span className="term-arrow">→</span>
       </div>
     </Link>
   )

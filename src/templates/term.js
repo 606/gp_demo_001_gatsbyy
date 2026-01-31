@@ -6,19 +6,17 @@ const TermTemplate = ({ pageContext }) => {
   const { term } = pageContext
 
   return (
-    <Layout>
+    <Layout activeCategory={term.category}>
       <div className="term-detail">
         <Link to="/" className="back-link">
           ← Back to all terms
         </Link>
 
-        <div className={`term-detail-card category-${term.category}`}>
+        <div className={`term-detail-card cat-${term.category}`}>
           <div className="term-detail-header">
             <div className="term-detail-meta">
               <h1 className="term-detail-name">{term.term}</h1>
-              <span className={`term-category`} style={{ background: 'var(--cat-color, var(--accent))' }}>
-                {term.category}
-              </span>
+              <span className="term-badge">{term.category}</span>
             </div>
             {term.fullName && (
               <p className="term-detail-fullname">{term.fullName}</p>
