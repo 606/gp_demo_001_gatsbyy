@@ -12,22 +12,43 @@ const THEMES = [
   { id: "forest", icon: "🌲" },
 ]
 
-const Layout = ({ children, activeCategory = "all", activeTerm = null, onCategoryChange, onSearch, searchValue = "" }) => {
+const Layout = ({ children, activeTerm = null, activeTag = null, onTagChange, onSearch, searchValue = "" }) => {
   const [theme, setTheme] = useState("dark")
   const [mounted, setMounted] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [expandedCategories, setExpandedCategories] = useState({})
+  const [expandedLetters, setExpandedLetters] = useState({})
 
-  const { categories, terms } = termsData
+  const { tags, terms } = termsData
 
-  // Group terms by category
-  const termsByCategory = useMemo(() => {
+  // Group terms by first letter
+  const termsByLetter = useMemo(() => {
     const grouped = {}
-    categories.forEach(cat => {
-      grouped[cat.id] = terms.filter(t => t.category === cat.id)
+    const filteredTerms = searchValue
+      ? terms.filter(t =>
+          t.term.toLowerCase().includes(searchValue.toLowerCase()) ||
+          t.fullName?.toLowerCase().includes(searchValue.toLowerCase())
+        )
+      : terms
+
+    filteredTerms.forEach(term => {
+      const letter = term.term[0].toUpperCase()
+      if (!grouped[letter]) {
+        grouped[letter] = []
+      }
+      grouped[letter].push(term)
     })
+
+    // Sort terms within each letter
+    Object.keys(grouped).forEach(letter => {
+      grouped[letter].sort((a, b) => a.term.localeCompare(b.term))
+    })
+
     return grouped
-  }, [categories, terms])
+  }, [terms, searchValue])
+
+  const sortedLetters = useMemo(() => {
+    return Object.keys(termsByLetter).sort()
+  }, [termsByLetter])
 
   useEffect(() => {
     setMounted(true)
@@ -35,11 +56,15 @@ const Layout = ({ children, activeCategory = "all", activeTerm = null, onCategor
     setTheme(savedTheme)
     document.documentElement.setAttribute("data-theme", savedTheme)
 
-    // Expand active category by default
-    if (activeCategory && activeCategory !== "all") {
-      setExpandedCategories(prev => ({ ...prev, [activeCategory]: true }))
+    // Expand letter of active term
+    if (activeTerm) {
+      const term = terms.find(t => t.id === activeTerm)
+      if (term) {
+        const letter = term.term[0].toUpperCase()
+        setExpandedLetters(prev => ({ ...prev, [letter]: true }))
+      }
     }
-  }, [activeCategory])
+  }, [activeTerm, terms])
 
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme)
@@ -47,17 +72,16 @@ const Layout = ({ children, activeCategory = "all", activeTerm = null, onCategor
     document.documentElement.setAttribute("data-theme", newTheme)
   }
 
-  const toggleCategory = (catId) => {
-    setExpandedCategories(prev => ({
+  const toggleLetter = (letter) => {
+    setExpandedLetters(prev => ({
       ...prev,
-      [catId]: !prev[catId]
+      [letter]: !prev[letter]
     }))
   }
 
-  const handleCategoryClick = (catId, e) => {
-    e.stopPropagation()
-    if (onCategoryChange) {
-      onCategoryChange(catId)
+  const handleTagClick = (tagId) => {
+    if (onTagChange) {
+      onTagChange(tagId === activeTag ? null : tagId)
     }
     setSidebarOpen(false)
   }
@@ -70,7 +94,7 @@ const Layout = ({ children, activeCategory = "all", activeTerm = null, onCategor
             <div className="logo-icon">{"</>"}</div>
             <div>
               <div className="logo-text">DevTerms</div>
-              <div className="logo-badge">v1.0</div>
+              <div className="logo-badge">{terms.length} terms</div>
             </div>
           </Link>
         </div>
@@ -89,58 +113,49 @@ const Layout = ({ children, activeCategory = "all", activeTerm = null, onCategor
         </div>
 
         <nav className="sidebar-nav">
-          {/* All Terms */}
+          {/* All Terms Link */}
           <div className="nav-section">
-            <button
-              className={`nav-item nav-item-main ${activeCategory === 'all' ? 'active' : ''}`}
-              onClick={(e) => handleCategoryClick('all', e)}
+            <Link
+              to="/"
+              className={`nav-item nav-item-main ${!activeTerm && !activeTag ? 'active' : ''}`}
             >
               <span className="nav-icon">📚</span>
               <span>All Terms</span>
               <span className="nav-count">{terms.length}</span>
-            </button>
+            </Link>
           </div>
 
-          {/* Categories Tree */}
+          {/* Terms A-Z */}
           <div className="nav-section">
-            <div className="nav-title">Categories</div>
+            <div className="nav-title">Terms A-Z</div>
 
-            {categories.map((cat) => {
-              const catTerms = termsByCategory[cat.id] || []
-              const isExpanded = expandedCategories[cat.id]
-              const isActive = activeCategory === cat.id
+            {sortedLetters.map((letter) => {
+              const letterTerms = termsByLetter[letter]
+              const isExpanded = expandedLetters[letter]
+              const hasActiveTerm = letterTerms.some(t => t.id === activeTerm)
 
               return (
-                <div key={cat.id} className="tree-item">
+                <div key={letter} className="tree-item">
                   <button
-                    className={`nav-item tree-parent ${isActive ? 'active' : ''}`}
-                    onClick={() => toggleCategory(cat.id)}
+                    className={`nav-item tree-parent ${hasActiveTerm ? 'has-active' : ''}`}
+                    onClick={() => toggleLetter(letter)}
                   >
                     <span className={`tree-arrow ${isExpanded ? 'expanded' : ''}`}>
                       ▶
                     </span>
-                    <span
-                      className="cat-dot"
-                      style={{ background: cat.color }}
-                    />
-                    <span
-                      className="nav-label"
-                      onClick={(e) => handleCategoryClick(cat.id, e)}
-                    >
-                      {cat.name}
-                    </span>
-                    <span className="nav-count">{catTerms.length}</span>
+                    <span className="letter-badge">{letter}</span>
+                    <span className="nav-count">{letterTerms.length}</span>
                   </button>
 
-                  {isExpanded && catTerms.length > 0 && (
+                  {isExpanded && (
                     <div className="tree-children">
-                      {catTerms.map((term) => (
+                      {letterTerms.map((term) => (
                         <Link
                           key={term.id}
                           to={`/term/${term.id}`}
                           className={`nav-item tree-child ${activeTerm === term.id ? 'active' : ''}`}
+                          onClick={() => setSidebarOpen(false)}
                         >
-                          <span className="tree-line" />
                           <span className="term-label">{term.term}</span>
                         </Link>
                       ))}
@@ -149,6 +164,28 @@ const Layout = ({ children, activeCategory = "all", activeTerm = null, onCategor
                 </div>
               )
             })}
+          </div>
+
+          {/* Tags */}
+          <div className="nav-section">
+            <div className="nav-title">Filter by Tag</div>
+            <div className="tags-list">
+              {tags.map((tag) => {
+                const count = terms.filter(t => t.tags?.includes(tag.id)).length
+                return (
+                  <button
+                    key={tag.id}
+                    className={`tag-btn ${activeTag === tag.id ? 'active' : ''}`}
+                    style={{ '--tag-color': tag.color }}
+                    onClick={() => handleTagClick(tag.id)}
+                  >
+                    <span className="tag-dot" />
+                    <span>{tag.name}</span>
+                    <span className="tag-count">{count}</span>
+                  </button>
+                )
+              })}
+            </div>
           </div>
         </nav>
 

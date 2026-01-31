@@ -429,6 +429,25 @@ a {
   font-size: 1rem;
 }
 
+.clear-filter {
+  margin-top: 12px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-family: var(--font-sans);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.clear-filter:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 /* Stats Row */
 .stats-row {
   display: flex;
@@ -785,65 +804,74 @@ a {
   position: relative;
 }
 
+.tree-parent.has-active {
+  color: var(--accent);
+}
+
 .tree-arrow {
-  font-size: 0.6rem;
+  font-size: 0.55rem;
   color: var(--text-muted);
   transition: transform var(--transition);
-  width: 16px;
+  width: 14px;
   display: inline-flex;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .tree-arrow.expanded {
   transform: rotate(90deg);
+  color: var(--accent);
 }
 
-.nav-label {
+.letter-badge {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-primary);
   flex: 1;
-  cursor: pointer;
 }
 
-.nav-label:hover {
+.tree-parent:hover .letter-badge {
   color: var(--accent);
 }
 
 .tree-children {
-  margin-left: 8px;
-  padding-left: 12px;
+  margin-left: 14px;
+  padding-left: 14px;
   border-left: 1px solid var(--border);
-  margin-top: 4px;
-  margin-bottom: 8px;
+  margin-top: 2px;
+  margin-bottom: 6px;
 }
 
 .tree-child {
-  padding: 8px 12px 8px 8px;
+  padding: 7px 12px 7px 10px;
   font-size: 0.85rem;
   gap: 8px;
   position: relative;
+  border-radius: var(--radius-sm);
 }
 
 .tree-child::before {
   content: '';
   position: absolute;
-  left: -12px;
+  left: -14px;
   top: 50%;
-  width: 8px;
+  width: 10px;
   height: 1px;
   background: var(--border);
-}
-
-.tree-line {
-  display: none;
 }
 
 .term-label {
   color: var(--text-secondary);
   transition: color var(--transition);
+  font-size: 0.85rem;
 }
 
-.tree-child:hover .term-label,
-.tree-child.active .term-label {
-  color: var(--accent);
+.tree-child:hover {
+  background: var(--bg-card);
+}
+
+.tree-child:hover .term-label {
+  color: var(--text-primary);
 }
 
 .tree-child.active {
@@ -851,10 +879,98 @@ a {
 }
 
 .tree-child.active .term-label {
-  font-weight: 500;
+  color: var(--accent);
+  font-weight: 600;
 }
 
 /* Nav Item Main */
 .nav-item-main {
   margin-bottom: 8px;
+}
+
+/* Tags List */
+.tags-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tag-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+  text-align: left;
+  width: 100%;
+}
+
+.tag-btn:hover {
+  background: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.tag-btn.active {
+  background: var(--bg-active);
+  color: var(--accent);
+}
+
+.tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--tag-color);
+  flex-shrink: 0;
+}
+
+.tag-btn.active .tag-dot {
+  box-shadow: 0 0 8px var(--tag-color);
+}
+
+.tag-count {
+  margin-left: auto;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+
+.tag-btn.active .tag-count {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* Term Tags in Cards/Detail */
+.term-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.term-tag {
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--tag-bg, var(--bg-input));
+  color: var(--tag-color, var(--text-secondary));
+  border: 1px solid var(--tag-color);
+  opacity: 0.85;
+  transition: opacity var(--transition);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.term-tag:hover {
+  opacity: 1;
 }

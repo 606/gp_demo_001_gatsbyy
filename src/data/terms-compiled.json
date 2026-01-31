@@ -1,52 +1,74 @@
 {
-  "categories": [
+  "tags": [
     {
-      "id": "architecture",
-      "name": "Architecture",
-      "icon": "🏗️",
+      "id": "javascript",
+      "name": "JavaScript",
+      "color": "#f7df1e"
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "color": "#3776ab"
+    },
+    {
+      "id": "web",
+      "name": "Web",
+      "color": "#61dafb"
+    },
+    {
+      "id": "cloud",
+      "name": "Cloud",
+      "color": "#ff9900"
+    },
+    {
+      "id": "security",
+      "name": "Security",
+      "color": "#ef4444"
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "color": "#10b981"
+    },
+    {
+      "id": "design-pattern",
+      "name": "Design Pattern",
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "testing",
+      "name": "Testing",
       "color": "#f472b6"
-    },
-    {
-      "id": "devops",
-      "name": "DevOps",
-      "icon": "🔄",
-      "color": "#60a5fa"
-    },
-    {
-      "id": "tools",
-      "name": "Tools",
-      "icon": "🛠️",
-      "color": "#4ade80"
     },
     {
       "id": "database",
       "name": "Database",
-      "icon": "🗄️",
       "color": "#facc15"
     },
     {
-      "id": "principles",
-      "name": "Principles",
-      "icon": "📐",
-      "color": "#c084fc"
+      "id": "devops",
+      "name": "DevOps",
+      "color": "#60a5fa"
     },
     {
       "id": "frontend",
       "name": "Frontend",
-      "icon": "🎨",
       "color": "#fb923c"
     },
     {
       "id": "backend",
       "name": "Backend",
-      "icon": "⚙️",
       "color": "#38bdf8"
     },
     {
-      "id": "testing",
-      "name": "Testing",
-      "icon": "🧪",
-      "color": "#f87171"
+      "id": "mobile",
+      "name": "Mobile",
+      "color": "#a78bfa"
+    },
+    {
+      "id": "api",
+      "name": "API",
+      "color": "#34d399"
     }
   ],
   "terms": [
@@ -55,216 +77,795 @@
       "term": "API",
       "fullName": "Application Programming Interface",
       "definition": "A set of protocols and tools that allows different software applications to communicate with each other.",
-      "category": "architecture",
-      "example": "REST API, GraphQL API"
+      "example": "REST API, GraphQL API, WebSocket API",
+      "tags": [
+        "web",
+        "backend",
+        "api"
+      ]
     },
     {
-      "id": "rest",
-      "term": "REST",
-      "fullName": "Representational State Transfer",
-      "definition": "An architectural style for designing networked applications using stateless communication protocols.",
-      "category": "architecture",
-      "example": "GET /users, POST /orders, DELETE /items/1"
+      "id": "ajax",
+      "term": "AJAX",
+      "fullName": "Asynchronous JavaScript and XML",
+      "definition": "A technique for creating fast and dynamic web pages by exchanging data with a server behind the scenes.",
+      "example": "fetch(), XMLHttpRequest, axios",
+      "tags": [
+        "javascript",
+        "web",
+        "frontend"
+      ]
     },
     {
-      "id": "mvc",
-      "term": "MVC",
-      "fullName": "Model-View-Controller",
-      "definition": "An architectural pattern that separates an application into three main components for better organization.",
-      "category": "architecture",
-      "example": "Rails, Django, ASP.NET MVC"
+      "id": "aws",
+      "term": "AWS",
+      "fullName": "Amazon Web Services",
+      "definition": "A comprehensive cloud computing platform provided by Amazon offering over 200 services.",
+      "example": "EC2, S3, Lambda, RDS, CloudFront",
+      "tags": [
+        "cloud",
+        "devops"
+      ]
     },
     {
-      "id": "microservices",
-      "term": "Microservices",
-      "fullName": "Microservices Architecture",
-      "definition": "An architectural style that structures an application as a collection of small, independent services.",
-      "category": "architecture",
-      "example": "Netflix, Amazon, Uber architectures"
+      "id": "agile",
+      "term": "Agile",
+      "fullName": "Agile Methodology",
+      "definition": "An iterative approach to project management and software development that helps teams deliver value faster.",
+      "example": "Scrum, Kanban, Sprint Planning",
+      "tags": [
+        "design-pattern"
+      ]
+    },
+    {
+      "id": "backend",
+      "term": "Backend",
+      "fullName": "Backend Development",
+      "definition": "The server-side of an application that handles business logic, database operations, and API endpoints.",
+      "example": "Node.js, Django, Spring Boot, Express",
+      "tags": [
+        "backend",
+        "web"
+      ]
+    },
+    {
+      "id": "babel",
+      "term": "Babel",
+      "fullName": "Babel JavaScript Compiler",
+      "definition": "A JavaScript compiler that converts modern JavaScript code into backwards-compatible versions.",
+      "example": "babel.config.js, @babel/preset-env",
+      "tags": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "bdd",
+      "term": "BDD",
+      "fullName": "Behavior-Driven Development",
+      "definition": "A development approach that encourages collaboration and writing tests in natural language.",
+      "example": "Cucumber, Gherkin syntax, Given-When-Then",
+      "tags": [
+        "testing",
+        "design-pattern"
+      ]
     },
     {
       "id": "ci-cd",
       "term": "CI/CD",
       "fullName": "Continuous Integration / Continuous Deployment",
       "definition": "A method to frequently deliver apps by introducing automation into the stages of app development.",
-      "category": "devops",
-      "example": "GitHub Actions, Jenkins, GitLab CI"
+      "example": "GitHub Actions, Jenkins, GitLab CI, CircleCI",
+      "tags": [
+        "devops",
+        "cloud"
+      ]
+    },
+    {
+      "id": "cdn",
+      "term": "CDN",
+      "fullName": "Content Delivery Network",
+      "definition": "A geographically distributed network of servers that delivers web content to users based on their location.",
+      "example": "Cloudflare, AWS CloudFront, Fastly",
+      "tags": [
+        "web",
+        "performance",
+        "cloud"
+      ]
+    },
+    {
+      "id": "cors",
+      "term": "CORS",
+      "fullName": "Cross-Origin Resource Sharing",
+      "definition": "A security mechanism that allows or restricts web pages from making requests to a different domain.",
+      "example": "Access-Control-Allow-Origin header",
+      "tags": [
+        "web",
+        "security",
+        "api"
+      ]
+    },
+    {
+      "id": "css",
+      "term": "CSS",
+      "fullName": "Cascading Style Sheets",
+      "definition": "A stylesheet language used for describing the presentation and visual styling of HTML documents.",
+      "example": "Flexbox, Grid, CSS Variables, Animations",
+      "tags": [
+        "frontend",
+        "web"
+      ]
+    },
+    {
+      "id": "crud",
+      "term": "CRUD",
+      "fullName": "Create, Read, Update, Delete",
+      "definition": "The four basic operations that can be performed on data in a database or storage system.",
+      "example": "POST, GET, PUT/PATCH, DELETE",
+      "tags": [
+        "database",
+        "api",
+        "backend"
+      ]
     },
     {
       "id": "docker",
       "term": "Docker",
       "fullName": "Docker Container Platform",
       "definition": "A platform for developing, shipping, and running applications in isolated containers.",
-      "category": "devops",
-      "example": "docker build, docker run, Dockerfile"
-    },
-    {
-      "id": "kubernetes",
-      "term": "Kubernetes",
-      "fullName": "Kubernetes (K8s)",
-      "definition": "An open-source container orchestration platform for automating deployment, scaling, and management.",
-      "category": "devops",
-      "example": "kubectl apply, Pods, Deployments, Services"
-    },
-    {
-      "id": "terraform",
-      "term": "Terraform",
-      "fullName": "HashiCorp Terraform",
-      "definition": "An infrastructure as code tool that lets you define cloud and on-prem resources in configuration files.",
-      "category": "devops",
-      "example": "terraform init, terraform plan, terraform apply"
-    },
-    {
-      "id": "git",
-      "term": "Git",
-      "fullName": "Git Version Control",
-      "definition": "A distributed version control system for tracking changes in source code during software development.",
-      "category": "tools",
-      "example": "git commit, git push, git merge, git rebase"
-    },
-    {
-      "id": "npm",
-      "term": "npm",
-      "fullName": "Node Package Manager",
-      "definition": "A package manager for JavaScript, allowing developers to share and reuse code packages.",
-      "category": "tools",
-      "example": "npm install, npm run build, package.json"
-    },
-    {
-      "id": "webpack",
-      "term": "Webpack",
-      "fullName": "Webpack Module Bundler",
-      "definition": "A static module bundler for modern JavaScript applications that processes and bundles assets.",
-      "category": "tools",
-      "example": "webpack.config.js, loaders, plugins"
-    },
-    {
-      "id": "orm",
-      "term": "ORM",
-      "fullName": "Object-Relational Mapping",
-      "definition": "A technique that lets you query and manipulate data from a database using an object-oriented paradigm.",
-      "category": "database",
-      "example": "Prisma, Sequelize, TypeORM, Hibernate"
-    },
-    {
-      "id": "sql",
-      "term": "SQL",
-      "fullName": "Structured Query Language",
-      "definition": "A domain-specific language used for managing and manipulating relational databases.",
-      "category": "database",
-      "example": "SELECT * FROM users WHERE id = 1"
-    },
-    {
-      "id": "nosql",
-      "term": "NoSQL",
-      "fullName": "Not Only SQL",
-      "definition": "A category of database management systems that don't use traditional relational tables.",
-      "category": "database",
-      "example": "MongoDB, Redis, Cassandra, DynamoDB"
-    },
-    {
-      "id": "solid",
-      "term": "SOLID",
-      "fullName": "SOLID Principles",
-      "definition": "Five design principles intended to make software designs more understandable, flexible, and maintainable.",
-      "category": "principles",
-      "example": "Single Responsibility, Open/Closed, Liskov Substitution"
-    },
-    {
-      "id": "dry",
-      "term": "DRY",
-      "fullName": "Don't Repeat Yourself",
-      "definition": "A principle aimed at reducing repetition of code by abstracting common logic into reusable components.",
-      "category": "principles",
-      "example": "Creating reusable functions, components, and utilities"
-    },
-    {
-      "id": "kiss",
-      "term": "KISS",
-      "fullName": "Keep It Simple, Stupid",
-      "definition": "A design principle stating that systems work best when kept simple rather than made complicated.",
-      "category": "principles",
-      "example": "Avoiding over-engineering, choosing simple solutions"
-    },
-    {
-      "id": "yagni",
-      "term": "YAGNI",
-      "fullName": "You Aren't Gonna Need It",
-      "definition": "A principle that states a programmer should not add functionality until it is actually needed.",
-      "category": "principles",
-      "example": "Not building features 'just in case' they might be needed"
-    },
-    {
-      "id": "jsx",
-      "term": "JSX",
-      "fullName": "JavaScript XML",
-      "definition": "A syntax extension for JavaScript that allows writing HTML-like code in JavaScript files.",
-      "category": "frontend",
-      "example": "<Button onClick={handleClick}>Click me</Button>"
+      "example": "docker build, docker run, Dockerfile, docker-compose",
+      "tags": [
+        "devops",
+        "cloud"
+      ]
     },
     {
       "id": "dom",
       "term": "DOM",
       "fullName": "Document Object Model",
       "definition": "A programming interface for HTML documents that represents the page as a tree of objects.",
-      "category": "frontend",
-      "example": "document.getElementById(), element.innerHTML"
+      "example": "document.getElementById(), element.innerHTML, querySelector",
+      "tags": [
+        "javascript",
+        "frontend",
+        "web"
+      ]
     },
     {
-      "id": "css-in-js",
-      "term": "CSS-in-JS",
-      "fullName": "CSS-in-JavaScript",
-      "definition": "A styling technique where CSS is composed using JavaScript, enabling dynamic and scoped styles.",
-      "category": "frontend",
-      "example": "styled-components, Emotion, CSS Modules"
+      "id": "dry",
+      "term": "DRY",
+      "fullName": "Don't Repeat Yourself",
+      "definition": "A principle aimed at reducing repetition of code by abstracting common logic into reusable components.",
+      "example": "Creating utility functions, shared components, mixins",
+      "tags": [
+        "design-pattern"
+      ]
     },
     {
-      "id": "middleware",
-      "term": "Middleware",
-      "fullName": "Middleware Function",
-      "definition": "Software that acts as a bridge between an operating system or database and applications.",
-      "category": "backend",
-      "example": "Express middleware, authentication layers"
+      "id": "dns",
+      "term": "DNS",
+      "fullName": "Domain Name System",
+      "definition": "A hierarchical naming system that translates human-readable domain names to IP addresses.",
+      "example": "A records, CNAME, MX records, nameservers",
+      "tags": [
+        "web",
+        "cloud"
+      ]
     },
     {
-      "id": "graphql",
-      "term": "GraphQL",
-      "fullName": "Graph Query Language",
-      "definition": "A query language for APIs that allows clients to request exactly the data they need.",
-      "category": "backend",
-      "example": "query { user(id: 1) { name, email } }"
-    },
-    {
-      "id": "websocket",
-      "term": "WebSocket",
-      "fullName": "WebSocket Protocol",
-      "definition": "A communication protocol providing full-duplex channels over a single TCP connection.",
-      "category": "backend",
-      "example": "Real-time chat, live notifications, gaming"
-    },
-    {
-      "id": "tdd",
-      "term": "TDD",
-      "fullName": "Test-Driven Development",
-      "definition": "A development process where you write tests before writing the code that makes them pass.",
-      "category": "testing",
-      "example": "Red-Green-Refactor cycle"
-    },
-    {
-      "id": "unit-test",
-      "term": "Unit Test",
-      "fullName": "Unit Testing",
-      "definition": "A type of testing where individual units or components of software are tested in isolation.",
-      "category": "testing",
-      "example": "Jest, Mocha, pytest, JUnit"
+      "id": "es6",
+      "term": "ES6",
+      "fullName": "ECMAScript 2015",
+      "definition": "A major update to JavaScript that introduced classes, modules, arrow functions, and more.",
+      "example": "const/let, arrow functions, destructuring, spread operator",
+      "tags": [
+        "javascript",
+        "frontend"
+      ]
     },
     {
       "id": "e2e",
       "term": "E2E",
       "fullName": "End-to-End Testing",
       "definition": "A testing methodology that tests the entire application flow from start to finish.",
-      "category": "testing",
-      "example": "Cypress, Playwright, Selenium"
+      "example": "Cypress, Playwright, Selenium, Puppeteer",
+      "tags": [
+        "testing",
+        "frontend"
+      ]
+    },
+    {
+      "id": "env",
+      "term": "ENV",
+      "fullName": "Environment Variables",
+      "definition": "Dynamic values that can affect the behavior of running processes on a computer.",
+      "example": ".env files, process.env, NODE_ENV",
+      "tags": [
+        "devops",
+        "backend",
+        "security"
+      ]
+    },
+    {
+      "id": "frontend",
+      "term": "Frontend",
+      "fullName": "Frontend Development",
+      "definition": "The client-side of an application that users interact with directly in their browser.",
+      "example": "React, Vue, Angular, HTML/CSS/JS",
+      "tags": [
+        "frontend",
+        "web"
+      ]
+    },
+    {
+      "id": "flux",
+      "term": "Flux",
+      "fullName": "Flux Architecture",
+      "definition": "An application architecture pattern for building client-side web applications with unidirectional data flow.",
+      "example": "Redux, Vuex, MobX",
+      "tags": [
+        "javascript",
+        "frontend",
+        "design-pattern"
+      ]
+    },
+    {
+      "id": "git",
+      "term": "Git",
+      "fullName": "Git Version Control",
+      "definition": "A distributed version control system for tracking changes in source code during software development.",
+      "example": "git commit, git push, git merge, git rebase, git branch",
+      "tags": [
+        "devops"
+      ]
+    },
+    {
+      "id": "graphql",
+      "term": "GraphQL",
+      "fullName": "Graph Query Language",
+      "definition": "A query language for APIs that allows clients to request exactly the data they need.",
+      "example": "query { user(id: 1) { name, email } }",
+      "tags": [
+        "api",
+        "backend",
+        "web"
+      ]
+    },
+    {
+      "id": "gcp",
+      "term": "GCP",
+      "fullName": "Google Cloud Platform",
+      "definition": "A suite of cloud computing services offered by Google for computing, storage, and machine learning.",
+      "example": "Compute Engine, Cloud Storage, BigQuery, Cloud Run",
+      "tags": [
+        "cloud",
+        "devops"
+      ]
+    },
+    {
+      "id": "html",
+      "term": "HTML",
+      "fullName": "HyperText Markup Language",
+      "definition": "The standard markup language for creating web pages and web applications.",
+      "example": "<div>, <form>, <input>, semantic elements",
+      "tags": [
+        "frontend",
+        "web"
+      ]
+    },
+    {
+      "id": "http",
+      "term": "HTTP",
+      "fullName": "HyperText Transfer Protocol",
+      "definition": "The foundation of data communication on the web, defining how messages are formatted and transmitted.",
+      "example": "GET, POST, PUT, DELETE, status codes",
+      "tags": [
+        "web",
+        "api"
+      ]
+    },
+    {
+      "id": "hooks",
+      "term": "Hooks",
+      "fullName": "React Hooks",
+      "definition": "Functions that let you use state and other React features in functional components.",
+      "example": "useState, useEffect, useContext, useReducer",
+      "tags": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "ide",
+      "term": "IDE",
+      "fullName": "Integrated Development Environment",
+      "definition": "A software application that provides comprehensive facilities for software development.",
+      "example": "VS Code, IntelliJ IDEA, WebStorm, PyCharm",
+      "tags": [
+        "devops"
+      ]
+    },
+    {
+      "id": "ioc",
+      "term": "IoC",
+      "fullName": "Inversion of Control",
+      "definition": "A design principle where the control flow is inverted compared to traditional procedural programming.",
+      "example": "Dependency Injection, Service Locator pattern",
+      "tags": [
+        "design-pattern",
+        "backend"
+      ]
+    },
+    {
+      "id": "json",
+      "term": "JSON",
+      "fullName": "JavaScript Object Notation",
+      "definition": "A lightweight data interchange format that is easy for humans to read and machines to parse.",
+      "example": "{\"name\": \"John\", \"age\": 30, \"active\": true}",
+      "tags": [
+        "javascript",
+        "api",
+        "web"
+      ]
+    },
+    {
+      "id": "jwt",
+      "term": "JWT",
+      "fullName": "JSON Web Token",
+      "definition": "A compact, URL-safe means of representing claims to be transferred between two parties.",
+      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "tags": [
+        "security",
+        "api",
+        "backend"
+      ]
+    },
+    {
+      "id": "jsx",
+      "term": "JSX",
+      "fullName": "JavaScript XML",
+      "definition": "A syntax extension for JavaScript that allows writing HTML-like code in JavaScript files.",
+      "example": "<Button onClick={handleClick}>Click me</Button>",
+      "tags": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "kubernetes",
+      "term": "Kubernetes",
+      "fullName": "Kubernetes (K8s)",
+      "definition": "An open-source container orchestration platform for automating deployment, scaling, and management.",
+      "example": "kubectl apply, Pods, Deployments, Services, Ingress",
+      "tags": [
+        "devops",
+        "cloud"
+      ]
+    },
+    {
+      "id": "kiss",
+      "term": "KISS",
+      "fullName": "Keep It Simple, Stupid",
+      "definition": "A design principle stating that systems work best when kept simple rather than made complicated.",
+      "example": "Avoiding over-engineering, choosing straightforward solutions",
+      "tags": [
+        "design-pattern"
+      ]
+    },
+    {
+      "id": "lint",
+      "term": "Linting",
+      "fullName": "Code Linting",
+      "definition": "The process of analyzing code for potential errors, bugs, and style violations.",
+      "example": "ESLint, Prettier, Stylelint, pylint",
+      "tags": [
+        "devops",
+        "javascript"
+      ]
+    },
+    {
+      "id": "lambda",
+      "term": "Lambda",
+      "fullName": "AWS Lambda / Serverless Functions",
+      "definition": "A serverless compute service that runs code in response to events without provisioning servers.",
+      "example": "AWS Lambda, Vercel Functions, Netlify Functions",
+      "tags": [
+        "cloud",
+        "backend",
+        "devops"
+      ]
+    },
+    {
+      "id": "microservices",
+      "term": "Microservices",
+      "fullName": "Microservices Architecture",
+      "definition": "An architectural style that structures an application as a collection of small, independent services.",
+      "example": "Netflix architecture, Amazon services",
+      "tags": [
+        "design-pattern",
+        "backend",
+        "cloud"
+      ]
+    },
+    {
+      "id": "middleware",
+      "term": "Middleware",
+      "fullName": "Middleware Function",
+      "definition": "Software that acts as a bridge between an operating system or database and applications.",
+      "example": "Express middleware, authentication layers, logging",
+      "tags": [
+        "backend",
+        "api"
+      ]
+    },
+    {
+      "id": "mvc",
+      "term": "MVC",
+      "fullName": "Model-View-Controller",
+      "definition": "An architectural pattern that separates an application into three main components for better organization.",
+      "example": "Rails, Django, ASP.NET MVC, Spring MVC",
+      "tags": [
+        "design-pattern",
+        "backend"
+      ]
+    },
+    {
+      "id": "mongodb",
+      "term": "MongoDB",
+      "fullName": "MongoDB Database",
+      "definition": "A popular NoSQL document database that stores data in flexible, JSON-like documents.",
+      "example": "db.collection.find(), mongoose, Atlas",
+      "tags": [
+        "database",
+        "backend"
+      ]
+    },
+    {
+      "id": "nodejs",
+      "term": "Node.js",
+      "fullName": "Node.js Runtime",
+      "definition": "A JavaScript runtime built on Chrome's V8 engine for building server-side applications.",
+      "example": "Express, Fastify, NestJS, npm",
+      "tags": [
+        "javascript",
+        "backend"
+      ]
+    },
+    {
+      "id": "npm",
+      "term": "npm",
+      "fullName": "Node Package Manager",
+      "definition": "A package manager for JavaScript, allowing developers to share and reuse code packages.",
+      "example": "npm install, npm run build, package.json",
+      "tags": [
+        "javascript",
+        "devops"
+      ]
+    },
+    {
+      "id": "nosql",
+      "term": "NoSQL",
+      "fullName": "Not Only SQL",
+      "definition": "A category of database management systems that don't use traditional relational tables.",
+      "example": "MongoDB, Redis, Cassandra, DynamoDB, Firebase",
+      "tags": [
+        "database",
+        "backend"
+      ]
+    },
+    {
+      "id": "nginx",
+      "term": "NGINX",
+      "fullName": "NGINX Web Server",
+      "definition": "A high-performance web server, reverse proxy, and load balancer.",
+      "example": "nginx.conf, reverse proxy, SSL termination",
+      "tags": [
+        "devops",
+        "web",
+        "backend"
+      ]
+    },
+    {
+      "id": "oauth",
+      "term": "OAuth",
+      "fullName": "Open Authorization",
+      "definition": "An open standard for access delegation, commonly used for token-based authentication.",
+      "example": "OAuth 2.0, Google Sign-In, GitHub OAuth",
+      "tags": [
+        "security",
+        "api",
+        "backend"
+      ]
+    },
+    {
+      "id": "orm",
+      "term": "ORM",
+      "fullName": "Object-Relational Mapping",
+      "definition": "A technique that lets you query and manipulate data from a database using an object-oriented paradigm.",
+      "example": "Prisma, Sequelize, TypeORM, Hibernate, SQLAlchemy",
+      "tags": [
+        "database",
+        "backend"
+      ]
+    },
+    {
+      "id": "promise",
+      "term": "Promise",
+      "fullName": "JavaScript Promise",
+      "definition": "An object representing the eventual completion or failure of an asynchronous operation.",
+      "example": "new Promise(), .then(), .catch(), async/await",
+      "tags": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "pwa",
+      "term": "PWA",
+      "fullName": "Progressive Web App",
+      "definition": "A web application that uses modern web capabilities to deliver app-like experiences.",
+      "example": "Service Workers, Web App Manifest, offline support",
+      "tags": [
+        "frontend",
+        "web",
+        "mobile"
+      ]
+    },
+    {
+      "id": "postgresql",
+      "term": "PostgreSQL",
+      "fullName": "PostgreSQL Database",
+      "definition": "A powerful, open-source object-relational database system with strong reliability.",
+      "example": "psql, pgAdmin, JSONB, full-text search",
+      "tags": [
+        "database",
+        "backend"
+      ]
+    },
+    {
+      "id": "rest",
+      "term": "REST",
+      "fullName": "Representational State Transfer",
+      "definition": "An architectural style for designing networked applications using stateless communication protocols.",
+      "example": "GET /users, POST /orders, DELETE /items/1",
+      "tags": [
+        "api",
+        "backend",
+        "web"
+      ]
+    },
+    {
+      "id": "react",
+      "term": "React",
+      "fullName": "React.js Library",
+      "definition": "A JavaScript library for building user interfaces with a component-based architecture.",
+      "example": "JSX, Components, Hooks, Virtual DOM",
+      "tags": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "redis",
+      "term": "Redis",
+      "fullName": "Remote Dictionary Server",
+      "definition": "An in-memory data structure store used as a database, cache, and message broker.",
+      "example": "SET/GET, pub/sub, caching, session storage",
+      "tags": [
+        "database",
+        "backend",
+        "performance"
+      ]
+    },
+    {
+      "id": "regex",
+      "term": "Regex",
+      "fullName": "Regular Expression",
+      "definition": "A sequence of characters that defines a search pattern for string matching.",
+      "example": "/^[a-zA-Z0-9]+$/, /\\\\d{3}-\\\\d{4}/",
+      "tags": [
+        "javascript",
+        "backend"
+      ]
+    },
+    {
+      "id": "sql",
+      "term": "SQL",
+      "fullName": "Structured Query Language",
+      "definition": "A domain-specific language used for managing and manipulating relational databases.",
+      "example": "SELECT * FROM users WHERE id = 1",
+      "tags": [
+        "database",
+        "backend"
+      ]
+    },
+    {
+      "id": "solid",
+      "term": "SOLID",
+      "fullName": "SOLID Principles",
+      "definition": "Five design principles intended to make software designs more understandable, flexible, and maintainable.",
+      "example": "Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion",
+      "tags": [
+        "design-pattern"
+      ]
+    },
+    {
+      "id": "spa",
+      "term": "SPA",
+      "fullName": "Single Page Application",
+      "definition": "A web application that loads a single HTML page and dynamically updates content.",
+      "example": "React SPA, Vue SPA, client-side routing",
+      "tags": [
+        "frontend",
+        "web"
+      ]
+    },
+    {
+      "id": "ssr",
+      "term": "SSR",
+      "fullName": "Server-Side Rendering",
+      "definition": "A technique where web pages are rendered on the server before being sent to the client.",
+      "example": "Next.js, Nuxt.js, Gatsby, better SEO",
+      "tags": [
+        "frontend",
+        "web",
+        "performance"
+      ]
+    },
+    {
+      "id": "ssl",
+      "term": "SSL/TLS",
+      "fullName": "Secure Sockets Layer / Transport Layer Security",
+      "definition": "Cryptographic protocols designed to provide secure communication over a network.",
+      "example": "HTTPS, SSL certificates, Let's Encrypt",
+      "tags": [
+        "security",
+        "web"
+      ]
+    },
+    {
+      "id": "tdd",
+      "term": "TDD",
+      "fullName": "Test-Driven Development",
+      "definition": "A development process where you write tests before writing the code that makes them pass.",
+      "example": "Red-Green-Refactor cycle, unit tests first",
+      "tags": [
+        "testing",
+        "design-pattern"
+      ]
+    },
+    {
+      "id": "typescript",
+      "term": "TypeScript",
+      "fullName": "TypeScript Language",
+      "definition": "A strongly typed superset of JavaScript that compiles to plain JavaScript.",
+      "example": "interface, type, generics, tsconfig.json",
+      "tags": [
+        "javascript",
+        "frontend",
+        "backend"
+      ]
+    },
+    {
+      "id": "terraform",
+      "term": "Terraform",
+      "fullName": "HashiCorp Terraform",
+      "definition": "An infrastructure as code tool that lets you define cloud and on-prem resources in configuration files.",
+      "example": "terraform init, terraform plan, terraform apply",
+      "tags": [
+        "devops",
+        "cloud"
+      ]
+    },
+    {
+      "id": "unit-test",
+      "term": "Unit Test",
+      "fullName": "Unit Testing",
+      "definition": "A type of testing where individual units or components of software are tested in isolation.",
+      "example": "Jest, Mocha, pytest, JUnit, Vitest",
+      "tags": [
+        "testing"
+      ]
+    },
+    {
+      "id": "url",
+      "term": "URL",
+      "fullName": "Uniform Resource Locator",
+      "definition": "A reference to a web resource that specifies its location and how to retrieve it.",
+      "example": "https://example.com/path?query=value#hash",
+      "tags": [
+        "web"
+      ]
+    },
+    {
+      "id": "vdom",
+      "term": "Virtual DOM",
+      "fullName": "Virtual Document Object Model",
+      "definition": "A lightweight copy of the DOM that allows efficient updates by minimizing direct DOM manipulation.",
+      "example": "React reconciliation, diffing algorithm",
+      "tags": [
+        "javascript",
+        "frontend",
+        "performance"
+      ]
+    },
+    {
+      "id": "vue",
+      "term": "Vue",
+      "fullName": "Vue.js Framework",
+      "definition": "A progressive JavaScript framework for building user interfaces with reactive data binding.",
+      "example": "Vue components, Composition API, Vuex, Vue Router",
+      "tags": [
+        "javascript",
+        "frontend"
+      ]
+    },
+    {
+      "id": "webpack",
+      "term": "Webpack",
+      "fullName": "Webpack Module Bundler",
+      "definition": "A static module bundler for modern JavaScript applications that processes and bundles assets.",
+      "example": "webpack.config.js, loaders, plugins, code splitting",
+      "tags": [
+        "javascript",
+        "frontend",
+        "devops"
+      ]
+    },
+    {
+      "id": "websocket",
+      "term": "WebSocket",
+      "fullName": "WebSocket Protocol",
+      "definition": "A communication protocol providing full-duplex channels over a single TCP connection.",
+      "example": "Real-time chat, live notifications, Socket.io",
+      "tags": [
+        "api",
+        "backend",
+        "web"
+      ]
+    },
+    {
+      "id": "xss",
+      "term": "XSS",
+      "fullName": "Cross-Site Scripting",
+      "definition": "A security vulnerability that allows attackers to inject malicious scripts into web pages.",
+      "example": "Input sanitization, CSP headers, escaping output",
+      "tags": [
+        "security",
+        "web",
+        "frontend"
+      ]
+    },
+    {
+      "id": "xml",
+      "term": "XML",
+      "fullName": "Extensible Markup Language",
+      "definition": "A markup language that defines rules for encoding documents in both human and machine-readable format.",
+      "example": "<?xml version=\"1.0\"?><root><item>value</item></root>",
+      "tags": [
+        "api",
+        "web"
+      ]
+    },
+    {
+      "id": "yaml",
+      "term": "YAML",
+      "fullName": "YAML Ain't Markup Language",
+      "definition": "A human-readable data serialization standard commonly used for configuration files.",
+      "example": "docker-compose.yml, .github/workflows/*.yml",
+      "tags": [
+        "devops"
+      ]
+    },
+    {
+      "id": "yagni",
+      "term": "YAGNI",
+      "fullName": "You Aren't Gonna Need It",
+      "definition": "A principle that states a programmer should not add functionality until it is actually needed.",
+      "example": "Not building features 'just in case' they might be needed",
+      "tags": [
+        "design-pattern"
+      ]
     }
   ]
 }
