@@ -27,19 +27,28 @@ const IndexPage = ({ location }) => {
     setActiveTag(tagId)
   }
 
+  const handleSearchChange = (value) => {
+    setSearch(value)
+  }
+
   const filteredTerms = useMemo(() => {
     return terms.filter((term) => {
+      const query = search.toLowerCase()
       const matchesSearch =
         !search ||
-        term.term.toLowerCase().includes(search.toLowerCase()) ||
-        term.fullName?.toLowerCase().includes(search.toLowerCase()) ||
-        term.definition.toLowerCase().includes(search.toLowerCase())
+        term.term.toLowerCase().includes(query) ||
+        term.fullName?.toLowerCase().includes(query) ||
+        term.definition.toLowerCase().includes(query) ||
+        term.tags?.some(tagId => {
+          const tag = tags.find(t => t.id === tagId)
+          return tag?.name.toLowerCase().includes(query)
+        })
 
       const matchesTag = !activeTag || term.tags?.includes(activeTag)
 
       return matchesSearch && matchesTag
     })
-  }, [search, activeTag, terms])
+  }, [search, activeTag, terms, tags])
 
   const sortedTerms = useMemo(() => {
     return [...filteredTerms].sort((a, b) => a.term.localeCompare(b.term))
@@ -51,8 +60,8 @@ const IndexPage = ({ location }) => {
     <Layout
       activeTag={activeTag}
       onTagChange={handleTagChange}
-      onSearch={setSearch}
       searchValue={search}
+      onSearchChange={handleSearchChange}
     >
       <header className="page-header">
         {activeTagData ? (
@@ -60,7 +69,7 @@ const IndexPage = ({ location }) => {
             <div className="page-tag-header">
               <span
                 className="page-tag-dot"
-                style={{ background: activeTagData.color }}
+                style={{ background: activeTagData.color, boxShadow: `0 0 20px ${activeTagData.color}` }}
               />
               <h1 className="page-title">{activeTagData.name}</h1>
               <button
@@ -76,11 +85,13 @@ const IndexPage = ({ location }) => {
           </>
         ) : (
           <>
-            <h1 className="page-title">All Terms</h1>
+            <h1 className="page-title">
+              {search ? `Search Results` : 'All Terms'}
+            </h1>
             <p className="page-subtitle">
               {search
                 ? `${sortedTerms.length} results for "${search}"`
-                : `${sortedTerms.length} development terms`}
+                : `Browse ${sortedTerms.length} development terms`}
             </p>
           </>
         )}
@@ -95,7 +106,7 @@ const IndexPage = ({ location }) => {
       ) : (
         <div className="empty-state">
           <div className="empty-icon">🔍</div>
-          <p className="empty-text">No terms found.</p>
+          <p className="empty-text">No terms found. Try a different search.</p>
         </div>
       )}
     </Layout>

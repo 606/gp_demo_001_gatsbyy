@@ -12,21 +12,23 @@ const THEMES = [
   { id: "forest", icon: "🌲" },
 ]
 
-const Layout = ({ children, activeTerm = null, activeTag = null, onTagChange, onSearch, searchValue = "" }) => {
+const Layout = ({ children, activeTerm = null, activeTag = null, onTagChange, searchValue = "", onSearchChange }) => {
   const [theme, setTheme] = useState("dark")
   const [mounted, setMounted] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [localSearch, setLocalSearch] = useState(searchValue)
 
   const { tags, terms } = termsData
 
-  // Filter terms by search
+  // Filter terms by search in sidebar
   const filteredTerms = useMemo(() => {
-    if (!searchValue) return terms
+    if (!localSearch) return terms
+    const query = localSearch.toLowerCase()
     return terms.filter(t =>
-      t.term.toLowerCase().includes(searchValue.toLowerCase()) ||
-      t.fullName?.toLowerCase().includes(searchValue.toLowerCase())
+      t.term.toLowerCase().includes(query) ||
+      t.fullName?.toLowerCase().includes(query)
     )
-  }, [terms, searchValue])
+  }, [terms, localSearch])
 
   // Sort terms alphabetically
   const sortedTerms = useMemo(() => {
@@ -39,6 +41,11 @@ const Layout = ({ children, activeTerm = null, activeTag = null, onTagChange, on
     setTheme(savedTheme)
     document.documentElement.setAttribute("data-theme", savedTheme)
   }, [])
+
+  // Sync external search value
+  useEffect(() => {
+    setLocalSearch(searchValue)
+  }, [searchValue])
 
   const handleThemeChange = (newTheme) => {
     setTheme(newTheme)
@@ -53,6 +60,13 @@ const Layout = ({ children, activeTerm = null, activeTag = null, onTagChange, on
       navigate(tagId === activeTag ? '/' : `/?tag=${tagId}`)
     }
     setSidebarOpen(false)
+  }
+
+  const handleSearchChange = (value) => {
+    setLocalSearch(value)
+    if (onSearchChange) {
+      onSearchChange(value)
+    }
   }
 
   const handleTermClick = () => {
@@ -78,9 +92,9 @@ const Layout = ({ children, activeTerm = null, activeTag = null, onTagChange, on
             <input
               type="text"
               className="search-input"
-              placeholder="Search..."
-              value={searchValue}
-              onChange={(e) => onSearch && onSearch(e.target.value)}
+              placeholder="Search terms..."
+              value={localSearch}
+              onChange={(e) => handleSearchChange(e.target.value)}
             />
           </div>
         </div>
@@ -109,7 +123,9 @@ const Layout = ({ children, activeTerm = null, activeTag = null, onTagChange, on
 
           {/* Terms Tree */}
           <div className="nav-section">
-            <div className="nav-title">All Terms ({filteredTerms.length})</div>
+            <div className="nav-title">
+              {localSearch ? `Results (${sortedTerms.length})` : `All Terms (${terms.length})`}
+            </div>
             <div className="terms-tree">
               {sortedTerms.map((term) => (
                 <Link
@@ -122,6 +138,11 @@ const Layout = ({ children, activeTerm = null, activeTag = null, onTagChange, on
                   <span className="tree-label">{term.term}</span>
                 </Link>
               ))}
+              {sortedTerms.length === 0 && (
+                <div style={{ padding: '12px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                  No terms found
+                </div>
+              )}
             </div>
           </div>
         </nav>
