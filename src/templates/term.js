@@ -12,11 +12,11 @@ const TermTemplate = ({ pageContext }) => {
           ← Back to all terms
         </Link>
 
-        <div className="term-detail-card">
+        <div className={`term-detail-card category-${term.category}`}>
           <div className="term-detail-header">
-            <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "8px" }}>
+            <div className="term-detail-meta">
               <h1 className="term-detail-name">{term.term}</h1>
-              <span className={`term-category ${term.category}`}>
+              <span className={`term-category`} style={{ background: 'var(--cat-color, var(--accent))' }}>
                 {term.category}
               </span>
             </div>
@@ -45,5 +45,10 @@ const TermTemplate = ({ pageContext }) => {
 export default TermTemplate
 
 export const Head = ({ pageContext }) => (
-  <title>{pageContext.term.term} - DevTerms</title>
+  <>
+    <title>{pageContext.term.term} — DevTerms</title>
+    <meta name="description" content={pageContext.term.definition} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+  </>
 )

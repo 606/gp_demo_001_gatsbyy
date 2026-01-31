@@ -5,13 +5,13 @@ import TermCard from "../components/TermCard"
 import terms from "../data/terms.json"
 
 const CATEGORIES = [
-  { id: "all", label: "All" },
-  { id: "architecture", label: "Architecture" },
-  { id: "devops", label: "DevOps" },
-  { id: "tools", label: "Tools" },
-  { id: "database", label: "Database" },
-  { id: "principles", label: "Principles" },
-  { id: "frontend", label: "Frontend" },
+  { id: "all", label: "All", icon: "✨" },
+  { id: "architecture", label: "Architecture", icon: "🏗️" },
+  { id: "devops", label: "DevOps", icon: "🔄" },
+  { id: "tools", label: "Tools", icon: "🛠️" },
+  { id: "database", label: "Database", icon: "🗄️" },
+  { id: "principles", label: "Principles", icon: "📐" },
+  { id: "frontend", label: "Frontend", icon: "🎨" },
 ]
 
 const IndexPage = () => {
@@ -44,29 +44,34 @@ const IndexPage = () => {
     <Layout>
       <div className="container">
         <section className="hero">
-          <h1 className="hero-title">DevTerms</h1>
+          <div className="hero-badge">
+            <span>📚</span>
+            <span>Development Glossary</span>
+          </div>
+          <h1 className="hero-title">Master Dev Terminology</h1>
           <p className="hero-subtitle">
-            Your comprehensive glossary for software development terminology.
-            Learn and master the language of modern development.
+            Your comprehensive glossary for software development terms.
+            Search, explore, and understand the language of modern development.
           </p>
+
+          <div className="stats">
+            <div className="stat">
+              <div className="stat-number">{stats.total}</div>
+              <div className="stat-label">Terms</div>
+            </div>
+            <div className="stat">
+              <div className="stat-number">{stats.categories}</div>
+              <div className="stat-label">Categories</div>
+            </div>
+          </div>
         </section>
 
-        <div className="stats">
-          <div className="stat">
-            <div className="stat-number">{stats.total}</div>
-            <div className="stat-label">Terms</div>
-          </div>
-          <div className="stat">
-            <div className="stat-number">{stats.categories}</div>
-            <div className="stat-label">Categories</div>
-          </div>
-        </div>
-
         <div className="search-container">
+          <span className="search-icon">🔍</span>
           <input
             type="text"
             className="search-input"
-            placeholder="Search terms..."
+            placeholder="Search for terms, definitions..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -79,7 +84,7 @@ const IndexPage = () => {
               className={`category-btn ${activeCategory === cat.id ? "active" : ""}`}
               onClick={() => setActiveCategory(cat.id)}
             >
-              {cat.label}
+              <span>{cat.icon}</span> {cat.label}
             </button>
           ))}
         </div>
@@ -103,4 +108,11 @@ const IndexPage = () => {
 
 export default IndexPage
 
-export const Head = () => <title>DevTerms - Development Terminology</title>
+export const Head = () => (
+  <>
+    <title>DevTerms — Development Terminology</title>
+    <meta name="description" content="A comprehensive glossary for software development terminology" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+  </>
+)
