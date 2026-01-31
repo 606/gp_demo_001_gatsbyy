@@ -15,43 +15,42 @@ const TermTemplate = ({ pageContext }) => {
     <Layout activeTerm={term.id}>
       <div className="term-detail">
         <Link to="/" className="back-link">
-          ← Back to all terms
+          ← Back
         </Link>
 
-        <div className="term-detail-card">
-          <div className="term-detail-header">
+        <article className="term-detail-card">
+          <header className="term-detail-header">
             <h1 className="term-detail-name">{term.term}</h1>
             {term.fullName && (
               <p className="term-detail-fullname">{term.fullName}</p>
             )}
             {termTags.length > 0 && (
-              <div className="term-tags" style={{ marginTop: '16px', padding: 0, border: 'none' }}>
+              <div className="term-tags" style={{ marginTop: '24px', padding: 0, border: 'none' }}>
                 {termTags.map((tag) => (
                   <Link
                     key={tag.id}
                     to={`/?tag=${tag.id}`}
                     className="term-tag"
-                    style={{ '--tag-color': tag.color }}
                   >
                     {tag.name}
                   </Link>
                 ))}
               </div>
             )}
-          </div>
+          </header>
 
-          <div className="term-detail-section">
-            <p className="term-detail-label">Definition</p>
+          <section className="term-detail-section">
+            <h2 className="term-detail-label">Definition</h2>
             <p className="term-detail-content">{term.definition}</p>
-          </div>
+          </section>
 
           {term.example && (
-            <div className="term-detail-section">
-              <p className="term-detail-label">Example</p>
-              <div className="term-example">{term.example}</div>
-            </div>
+            <section className="term-detail-section">
+              <h2 className="term-detail-label">Example</h2>
+              <pre className="term-example">{term.example}</pre>
+            </section>
           )}
-        </div>
+        </article>
       </div>
     </Layout>
   )

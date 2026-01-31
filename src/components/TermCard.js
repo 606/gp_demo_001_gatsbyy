@@ -15,7 +15,7 @@ const TermCard = ({ term, tags = [], onTagClick }) => {
   }
 
   return (
-    <div className="term-card-wrapper">
+    <article className="term-card-wrapper">
       <Link to={`/term/${term.id}`} className="term-card">
         <h2 className="term-name">{term.term}</h2>
         {term.fullName && (
@@ -25,11 +25,10 @@ const TermCard = ({ term, tags = [], onTagClick }) => {
       </Link>
       {termTags.length > 0 && (
         <div className="term-tags">
-          {termTags.map((tag) => (
+          {termTags.slice(0, 4).map((tag) => (
             <button
               key={tag.id}
               className="term-tag"
-              style={{ '--tag-color': tag.color }}
               onClick={(e) => handleTagClick(e, tag.id)}
             >
               {tag.name}
@@ -37,7 +36,7 @@ const TermCard = ({ term, tags = [], onTagClick }) => {
           ))}
         </div>
       )}
-    </div>
+    </article>
   )
 }
 
