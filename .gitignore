@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Gatsby files
+.cache/
+public/
+
+# Build files
+*.log
+
+# Environment
+.env*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
